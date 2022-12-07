@@ -18,8 +18,26 @@ struct Node {
 class Solution {
   public:
   
-    //Approach 2: Without Using Extra Space:-------------------
-  
+     //Approach 2: Without Using Extra Space:-------------------
+    
+    void inorder(Node* root, int k, int &c, int &ans){
+        
+        if(root==NULL) return;
+        
+        inorder(root->left, k, c, ans);
+        c++;
+        if(c==k){
+            ans = root->data;
+        }
+        inorder(root->right, k, c, ans);
+    } 
+    
+    int KthSmallestElement(Node *root, int K){
+        int ans = -1;
+        int c = 0;
+        inorder(root,K,c,ans);
+        return ans;
+    }
     
     //---------------------------------------------------------
   
