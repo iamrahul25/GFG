@@ -2,7 +2,7 @@
 string buildLowestNumber(string s, int k){
     
     int n = s.size();
-    if(n==k) return 0;
+    if(n==k) return "0";
 
     stack<char> st;
     st.push(s[0]);
