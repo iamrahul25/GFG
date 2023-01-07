@@ -1,0 +1,163 @@
+-------------Login as Admin--------------
+sudo su 
+
+->Enter Password
+
+----------------Git--------------
+
+sudo add-apt-repository ppa:git-core/ppa
+
+sudo apt-get update 
+
+sudo apt-get install git 
+
+git --version 
+
+
+--------------OpenJDK  Ant  Maven-------------
+
+***All at once***
+
+sudo apt-get install openjdk-11 ant maven 
+
+***Installing one by one***
+
+sudo apt-get install openjdk-11
+sudo apt-get install ant
+sudo apt-get install maven 
+
+
+-------------------Postgresql-----------------
+
+wget  --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - 
+
+echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy"-pgdg main | sudo tee /etc/apt/sources.list.d/pgdg.list
+
+sudo apt-get update
+
+sudo apt-get install postgresql postgresql-client postgresql-contrib libpostgresql-jdbc-java -y
+
+psql -V
+
+
+
+----------------Configuring Postgresql---------
+sudo su postgres
+
+cd /etc/postgresql/15/main
+
+createuser --username=postgres --no-superuser --pwprompt dspace
+
+->Enter Password
+->Enter Again Password
+
+createdb --username=postgres --owner=dspace --encoding=UNICODE -T template0 dspace 
+
+psql --username=postgres dspace -c "CREATE EXTENSION pgcrypto;"
+
+exit 
+
+
+
+sudo gedit /etc/postgresql/15/main/pg_hba.conf
+
+
+*** Add this Line *** (Line - 93)
+local all dspace md5 
+
+sudo /etc/init.d/postgresql restart 
+
+
+
+---------------Making Build Directory--------- 
+
+sudo mkdir /build
+
+sudo chmod -R 777 /build
+
+
+--------------Solr----------------------------
+
+sudo mkdir /opt/solr-8.11
+
+cd /opt/solr-8.11
+
+sudo chown -R dspace:dspace /opt/solr-8.11
+
+wget -c https://downloads.apache.org/lucene/solr/8.11.2/solr-8.11.2.tgz
+
+tar xvf solr-8.11.2.tgz
+
+
+cp -rf /opt/solr-8.11/solr-8.11.2/* /opt/solr-8.11/
+
+rm -rf solr-8.11.2 solr-8.11.2.tgz
+
+/opt/solr-8.11/bin/solr start -force
+
+/opt/solr-8.11/bin/solr status 
+
+
+***Check in Browser if Solr is working or Not*** 
+
+http://localhost:8983/solr/
+
+exit
+
+
+-----------Download DSpace (Backend)---------
+cd /build
+
+wget https://github.com/DSpace/DSpace/archive/refs/tags/dspace-7.4.tar.gz
+
+tar zxvf dspace-7.4.tar.gz
+
+
+***** Remove Maven Disturbing ******
+
+sudo gedit /build/DSpace-dspace-7.4/dspace-api/pom.xml
+
+(Remove this) --> Line 116
+<plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>buildnumber-maven-plugin</artifactId>
+	<version>1.4</version>
+	<executions>
+	    <execution>
+		<phase>validate</phase>
+		<goals>
+		    <goal>create</goal>
+		</goals>
+	    </execution>
+	</executions>
+</plugin>
+
+cd /build/DSpace-dspace-7.4
+
+sudo mvn -U package
+
+
+cd dspace/target/dspace-installer
+
+sudo ant fresh_install
+
+
+
+--------------Tomcat Setup------------------
+
+cd /opt
+
+sudo
+
+
+
+
+
+
+
+
+
+
+
+
+

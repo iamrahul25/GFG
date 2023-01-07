@@ -1,0 +1,80 @@
+-------------Login as Admin--------------
+sudo su 
+
+->Enter Password
+
+---------------Update-------------------
+
+sudo apt-get update && sudo apt-get upgrade -y
+
+
+-------------NVM------------------------
+
+apt-get install curl
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+
+source ~/.bashrc
+
+nvm list-remote
+
+nvm install v16.19.0
+
+
+--------------Yarn-----------------------
+
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - 
+
+sudo apt update && sudo apt install yarn
+
+yarn --version
+
+
+
+-----------------DSpace (Frontend)-------
+
+wget -c https://github.com/DSpace/dspace-angular/archive/refs/tags/dspace-7.4.tar.gz
+
+tar zxvf dspace-7.4.tar.gz
+
+mv dspace-angular-dspace-7.4 dspace-7-angular
+
+cd dspace-7-angular
+
+yarn install
+
+
+------------DSpace User-------------------
+sudo useradd -m dspace
+sudo passwd dspace
+
+sudo mkdir /dspace
+sudo chown dspace /dspace
+
+
+-------------Moving /opt/----------------
+sudo cp -r dspace-7-angular /opt/
+
+sudo chown dspace:dspace -R /opt/dspace-7-angular
+
+cd /opt/dspace-7-angular
+
+yarn start
+
+
+---------------Start Dspace----------------
+
+http:localhost:4000
+
+
+
+
+
+
+
+
+
+
+
