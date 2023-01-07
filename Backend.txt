@@ -1,9 +1,12 @@
 -------------Login as Admin--------------
-sudo su 
+sudo su
 
 ->Enter Password
 
-----------------Git--------------
+---------------Update and Upgrade--------
+sudo apt-get update && sudo apt-get upgrade
+
+----------------Git----------------------
 
 sudo add-apt-repository ppa:git-core/ppa
 
@@ -67,6 +70,14 @@ local all dspace md5
 
 sudo /etc/init.d/postgresql restart 
 
+
+-----------------Creating dspace User---------
+sudo useradd -m dspace
+
+sudo passwd dspace 
+
+->Enter Password
+->Confirm Password
 
 
 ---------------Making Build Directory--------- 
