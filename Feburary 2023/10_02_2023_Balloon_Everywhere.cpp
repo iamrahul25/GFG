@@ -3,8 +3,14 @@
 class Solution{
 public:
     int maxInstance(string s){
-        map<char,int> mp;
-        for(auto it:s) mp[it]++;
-        return min({mp['b'],mp['a'],mp['l']/2,mp['o']/2,mp['n']});
+        unordered_map<char,int> mp;
+        
+        for(int i=0; i<s.size(); i++){
+            mp[s[i]]++;
+        }
+        
+        int ans = min( { mp['b'], mp['a'], mp['l']/2, mp['o']/2, mp['n'] } );
+        
+        return ans;
     }
 };
