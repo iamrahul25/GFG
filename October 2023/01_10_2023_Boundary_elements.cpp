@@ -3,8 +3,6 @@
 class Solution{   
     
     public:
-    //Function to return list of integers that form the boundary 
-    //traversal of the matrix in a clockwise manner.
     
     //Time: O(N) Space: O(1) 
     //Similar But Easy to Spiral Matrix Question!
